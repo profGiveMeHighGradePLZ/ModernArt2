@@ -118,7 +118,12 @@ public class ModernArt {
      * Default constructor, the game will be played with 3 players by default
      */
     public ModernArt() {
-        //TODO
+        this.noOfPlayers = 3;
+        players = new Player[noOfPlayers];
+        players[0] = new Player(INITIAL_MONEY);
+        players[1] = new ComputerPlayer(INITIAL_MONEY, scoreboard);
+        players[2] = new AFKPlayer(INITIAL_MONEY);
+        prepareDeck();
     }
 
     /**
@@ -149,7 +154,11 @@ public class ModernArt {
      * according to the table PAINTS
      */
     public void prepareDeck() {
-        //TODO
+        for(int i = 0;i<INITIAL_COUNT.length;i++){
+            for(int j = 0;j<INITIAL_COUNT[i];j++){
+                deck.add(new Painting(i));
+            }
+        }
 
         shuffle(deck);
     }
@@ -161,7 +170,11 @@ public class ModernArt {
      * The parameter round indicate which round the game is currently in
      */
     public void dealPainting(int round) {
-        //TODO
+        for(int i = 0;i<PRE_DEAL[noOfPlayers][round];i++){
+            for(int j = 0;j<noOfPlayers;j++){
+                players[j].dealPaintings(deck.remove(deck.size()-1));
+            }
+        }
     }
 
     /**
@@ -172,7 +185,36 @@ public class ModernArt {
      * The parameter round indicate which round the game is currently in
      */
     public int[] updateScoreboard(int round, int[] paintingCount) {
-        //TODO
+        int[] index = {-1,-1,-1};
+        boolean[] isMax = new boolean[paintingCount.length];
+        for(int i = 0;i< index.length;i++){
+            int max = Integer.MIN_VALUE;
+            int maxIndex = -1;
+            for(int j = 0;j<paintingCount.length;j++){
+                if(paintingCount[j] > max && !isMax[j] && paintingCount[j] != 0){
+                    max = paintingCount[j];
+                    maxIndex = j;
+                }
+            }
+            if(maxIndex != -1){
+                index[i] = maxIndex;
+                isMax[maxIndex] = true;
+            }
+        }
+
+
+
+
+        int[] score = new int[paintingCount.length];
+        for(int i = 0;i<index.length;i++){
+            if(index[i] != -1) {
+                scoreboard[round][index[i]] = SCORES[i];
+                for (int j = 0; j <= round; j++) {
+                    score[index[i]] += scoreboard[j][index[i]];
+                }
+            }
+        }
+        return score;
     }
 
     /**
@@ -275,4 +317,5 @@ public class ModernArt {
      */
     public Player[] getPlayers() {
         return players;
+    }
 }
