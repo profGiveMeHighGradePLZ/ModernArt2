@@ -14,6 +14,13 @@ public class AFKPlayer extends Player{
 
     @Override
     public Painting playPainting() {
+        System.out.println("The AFKPlayer put up a painting by "+handPaintings.get(0).getArtistName());
         return handPaintings.remove(0);
+    }
+
+
+    @Override
+    public int hiddenBid(int currentBid, Painting p) {
+        return 0;
     }
 }

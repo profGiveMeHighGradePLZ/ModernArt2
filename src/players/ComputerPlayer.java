@@ -11,5 +11,8 @@ public class ComputerPlayer extends Player{
         this.scoreboard = scoreboard;
     }
 
-
+    @Override
+    public int hiddenBid(int currentBid, Painting p) {
+        return super.hiddenBid(currentBid, p);
+    }
 }

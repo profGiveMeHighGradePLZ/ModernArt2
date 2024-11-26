@@ -207,4 +207,12 @@ public class Player {
         }
         boughtPaintings.clear();
     }
+
+   /*
+   this part is to write my personal method
+   */
+
+   public int hiddenBid(int currentBid,Painting p){
+       return bid(currentBid,p);
+   }
 }
