@@ -154,9 +154,18 @@ public class ModernArt {
      * according to the table PAINTS
      */
     public void prepareDeck() {
-        for(int i = 0;i<INITIAL_COUNT.length;i++){
-            for(int j = 0;j<INITIAL_COUNT[i];j++){
-                deck.add(new Painting(i));
+        for(int i = 0;i<INITIAL_COUNT.length;i++){//i refer to artist_id
+            for(int j = 0;j<PAINTS[i].length;j++){//j refer to auction type
+                for(int paint = 0;paint<PAINTS[i][j];paint++){
+                    if(j == 0)
+                        deck.add(new OpenAuction(i));
+                    else if (j == 1)
+                        deck.add(new HiddenAuction(i));
+                    else if (j == 2)
+                        deck.add(new OneOfferAuction(i));
+                    else
+                        deck.add(new FixedPriceAuction(i));
+                }
             }
         }
 

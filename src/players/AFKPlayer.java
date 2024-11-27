@@ -1,5 +1,6 @@
 package players;
 
+import paintings.HiddenAuction;
 import paintings.Painting;
 
 public class AFKPlayer extends Player{
@@ -9,12 +10,14 @@ public class AFKPlayer extends Player{
 
     @Override
     public int bid(int currentBid, Painting p) {
+        if(!(p instanceof HiddenAuction)) {
+            System.out.println(this+" bids 0");
+        }
         return 0;
     }
 
     @Override
     public Painting playPainting() {
-        System.out.println("The AFKPlayer put up a painting by "+handPaintings.get(0).getArtistName());
         return handPaintings.remove(0);
     }
 
@@ -22,5 +25,10 @@ public class AFKPlayer extends Player{
     @Override
     public int hiddenBid(int currentBid, Painting p) {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

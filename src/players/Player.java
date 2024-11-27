@@ -100,7 +100,6 @@ public class Player {
             try {
                 index = in.nextInt();
                 if (validPaintingInput(index)) {
-                    System.out.println("The player put up a painting by "+handPaintings.get(index).getArtistName());
                     return handPaintings.remove(index);
 //                    break;
                 }
@@ -188,6 +187,7 @@ public class Player {
      */
     public String toString() {
         return getName() + " has $" + getMoney();
+//        return getName();
     }
     /**
      * To finalize a bid and purchase a painting

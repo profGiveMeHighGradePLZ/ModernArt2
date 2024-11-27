@@ -113,7 +113,7 @@ public abstract class Painting {
      */
     @Override
     public final String toString() {
-        return getArtistName()+" [" + getType() + "] owner: " + getOwner();
+        return getArtistName()+" [" + getType() + "] owner: " + getOwner().getName();
     }
 
 
