@@ -23,11 +23,6 @@ public class AFKPlayer extends Player{
 
 
     @Override
-    public int hiddenBid(int currentBid, Painting p) {
-        return 0;
-    }
-
-    @Override
     public String toString() {
         return getName();
     }
