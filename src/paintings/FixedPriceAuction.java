@@ -14,30 +14,27 @@ public class FixedPriceAuction extends OpenAuction{
 
     @Override
     public void auction(Player[] players) {
-        boolean deal = false;
-        int turn = 0;
         int startIndex = 0;
         for(int i = 0;i< players.length;i++){
-            if(players[i] == owner){
-                startIndex = i;
+            if(players[i].equals(getOwner())){
+                currentBidder = players[i];
+                System.out.println(players[i].getName()+", please fix a price for the auction");
+                currentBid = players[i].bid(currentBid,this);
+                startIndex = i+1;
                 break;
             }
         }
-        do{
-            deal = true;
-            for(int i = 0;i<players.length;i++){
-                if(turn == players.length && deal)
-                    break;
-                int bid = players[(i+startIndex)% players.length].bid(currentBid,this);
-                if(bid > currentBid){
-                    currentBidder = players[(i+startIndex)% players.length];
-                    currentBid = bid;
-                    deal = false;
-                    turn = 0;
-                }
-                turn++;
+        for(int i = 0;i< players.length;i++){
+            int bid = players[(i+startIndex)% players.length].bid(currentBid,this);
+            if(bid >= currentBid){
+                currentBidder = players[(i+startIndex)% players.length];
+                super.sold();
+                return;
             }
-        }while(!deal);
+            else{
+                System.out.println(players[(i+startIndex)% players.length]+" pass.");
+            }
+        }
         super.sold();
     }
 }

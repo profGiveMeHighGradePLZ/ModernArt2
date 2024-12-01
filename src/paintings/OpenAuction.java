@@ -19,7 +19,7 @@ public class OpenAuction extends Painting {
         int startIndex = 0;
         for(int i = 0;i< players.length;i++){
             if(players[i].equals(owner)){
-                startIndex = i+1;
+                startIndex = i;
                 break;
             }
         }
