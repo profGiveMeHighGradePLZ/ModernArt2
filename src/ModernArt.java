@@ -1,4 +1,5 @@
 
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +98,8 @@ public class ModernArt {
      */
     private int[][] scoreboard = new int[ROUND][Painting.ARTIST_NAMES.length];
 
+    private final boolean isSolitaireGame;
+
     public static void main(String[] args) {
         if (args.length == 1) {
             try {
@@ -104,15 +107,78 @@ public class ModernArt {
                 if (noOfPlayers < 3 || noOfPlayers > 5) {
                     throw new Exception();
                 }
-                new ModernArt(noOfPlayers).startgame();
+                int flag = 0;
+                boolean exit = false;
+                do {
+                    flag = mode();
+                    switch (flag){
+                        case 1:
+                            new ModernArt(noOfPlayers,true).startgame();
+                            break;
+                        case 2:
+                            new ModernArt(noOfPlayers,false).startgame();
+                            break;
+                        case 0:
+                            exit = true;
+                            System.out.println("Game Over!");
+                            break;
+                        default:
+                            System.out.println("error mode!please enter again!");
+                    }
+                }while(!exit);
             } catch (Exception e) {
                 System.out.println("Invalid argument. Please enter a valid integer between 3-5.");
             }
         } else {
-            new ModernArt().startgame();
+            int flag = 0;
+            boolean exit = false;
+            do {
+                flag = mode();
+                switch (flag){
+                    case 1:
+                        new ModernArt(true).startgame();
+                        break;
+                    case 2:
+                        new ModernArt(false).startgame();
+                        break;
+                    case 0:
+                        exit = true;
+                        System.out.println("Game Over!");
+                        break;
+                    default:
+                        System.out.println("error mode!please enter again!");
+                }
+            }while(!exit);
+
+
         }
     }
 
+    private static int mode(){
+        Scanner in = new Scanner(System.in);
+        int flag = -1;
+        while(true) {
+            try {
+                gameInterface();
+                flag = in.nextInt();
+                return flag;
+            } catch (Exception e) {
+                in.nextLine();
+                System.out.println("Error! Invalid Input!");
+            }
+        }
+    }
+
+    private static void gameInterface(){
+        System.out.println("||----------------------------------------------------------||");
+        System.out.println("||----------------      Modern Art    ----------------------||");
+        System.out.println("||----------------      Game Mode      ---------------------||");
+        System.out.println("||---------------- 1, solitaire game   ---------------------||");
+        System.out.println("||---------------- 2, multiplayer game ---------------------||");
+        System.out.println("||-----------------0,     exit game    ---------------------||");
+        System.out.println("||----------------------------------------------------------||");
+        System.out.print("Please choose the mode:");
+    }
 
     /**
      * Default constructor, the game will be played with 3 players by default
@@ -120,12 +186,28 @@ public class ModernArt {
     public ModernArt() {
         this.noOfPlayers = 3;
         players = new Player[noOfPlayers];
+        this.isSolitaireGame = true;
         players[0] = new Player(INITIAL_MONEY);
         players[1] = new ComputerPlayer(INITIAL_MONEY, scoreboard);
         players[2] = new AFKPlayer(INITIAL_MONEY);
         prepareDeck();
     }
-
+    public ModernArt(boolean isSolitaireGame) {
+        this.noOfPlayers = 3;
+        players = new Player[noOfPlayers];
+        this.isSolitaireGame = isSolitaireGame;
+        if(isSolitaireGame) {
+            players[0] = new Player(INITIAL_MONEY);
+            players[1] = new ComputerPlayer(INITIAL_MONEY, scoreboard);
+            players[2] = new AFKPlayer(INITIAL_MONEY);
+        }
+        else{
+            players[0] = new Player(INITIAL_MONEY);
+            players[1] = new Player(INITIAL_MONEY);
+            players[2] = new Player(INITIAL_MONEY);
+        }
+        prepareDeck();
+    }
     /**
      * Given, #updated.
      * It will creates a game with the given number of players.
@@ -133,14 +215,22 @@ public class ModernArt {
      * Player 2 is a computer player that will bid rationally
      * Player 3 and above are AFK players - Away From Keyboard, they will not bid and will play only the first painting in their round.
      */
-    public ModernArt(int noOfPlayers) {
+    public ModernArt(int noOfPlayers,boolean isSolitaireGame) {
         this.noOfPlayers = noOfPlayers;
         this.players = new Player[noOfPlayers];
-        players[0] = new Player(INITIAL_MONEY);
-        players[1] = new ComputerPlayer(INITIAL_MONEY, scoreboard);
+        this.isSolitaireGame = isSolitaireGame;
+        if(isSolitaireGame) {
+            players[0] = new Player(INITIAL_MONEY);
+            players[1] = new ComputerPlayer(INITIAL_MONEY, scoreboard);
 
-        for (int i = 2; i < noOfPlayers; i++) {
-            players[i] = new AFKPlayer(INITIAL_MONEY);
+            for (int i = 2; i < noOfPlayers; i++) {
+                players[i] = new AFKPlayer(INITIAL_MONEY);
+            }
+        }
+        else{
+            for (int i = 0; i < noOfPlayers; i++) {
+                players[i] = new Player(INITIAL_MONEY);
+            }
         }
         prepareDeck();
 
@@ -153,22 +243,41 @@ public class ModernArt {
      * We have 5 artists, each artist has 4 types of paintings,
      * according to the table PAINTS
      */
+
+
     public void prepareDeck() {
-        for(int i = 0;i<INITIAL_COUNT.length;i++){//i refer to artist_id
-            for(int j = 0;j<PAINTS[i].length;j++){//j refer to auction type
-                for(int paint = 0;paint<PAINTS[i][j];paint++){
-                    if(j == 0)
-                        deck.add(new OpenAuctionPainting(i));
-                    else if (j == 1)
-                        deck.add(new HiddenAuctionPainting(i));
-                    else if (j == 2)
-                        deck.add(new OneOfferAuctionPainting(i));
-                    else
-                        deck.add(new FixedPriceAuctionPainting(i));
+        if(isSolitaireGame) {
+            for (int i = 0; i < INITIAL_COUNT.length; i++) {//i refer to artist_id
+                for (int j = 0; j < PAINTS[i].length; j++) {//j refer to auction type
+                    for (int paint = 0; paint < PAINTS[i][j]; paint++) {
+                        if (j == 0)
+                            deck.add(new OpenAuctionPainting(i));
+                        else if (j == 1)
+                            deck.add(new HiddenAuctionPainting(i));
+                        else if (j == 2)
+                            deck.add(new OneOfferAuctionPainting(i));
+                        else
+                            deck.add(new FixedPriceAuctionPainting(i));
+                    }
                 }
             }
         }
-
+        else{
+            for (int i = 0; i < INITIAL_COUNT.length; i++) {//i refer to artist_id
+                for (int j = 0; j < PAINTS[i].length; j++) {//j refer to auction type
+                    for (int paint = 0; paint < PAINTS[i][j]; paint++) {
+                        if (j == 0)
+                            deck.add(new OpenAuctionPainting(i));
+                        else if (j == 1)
+                            deck.add(new HiddenAuctionPainting(i));
+                        else if (j == 2)
+                            deck.add(new OpenAuctionPainting(i));
+                        else
+                            deck.add(new FixedPriceAuctionPainting(i));
+                    }
+                }
+            }
+        }
         shuffle(deck);
     }
     /**
