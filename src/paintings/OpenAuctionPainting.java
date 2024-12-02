@@ -2,14 +2,14 @@ package paintings;
 
 import players.Player;
 
-public class OpenAuction extends Painting {
+public class OpenAuctionPainting extends Painting {
 
-    public OpenAuction(int artist_id){
+    public OpenAuctionPainting(int artist_id){
         super(artist_id);
     }
     @Override
     public String getType() {
-        return "OpenAuction";
+        return "Open Auction";
     }
 
     @Override

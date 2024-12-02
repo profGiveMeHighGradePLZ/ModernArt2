@@ -1,6 +1,6 @@
 package players;
 
-import paintings.HiddenAuction;
+import paintings.HiddenAuctionPainting;
 import paintings.Painting;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,7 +30,7 @@ public class ComputerPlayer extends Player{
         if((tmp += currentBid+ ThreadLocalRandom.current().nextInt(15))<potentialValue && tmp <= this.getMoney())
             bid = tmp;
 
-        if(!(p instanceof HiddenAuction)) {
+        if(!(p instanceof HiddenAuctionPainting)) {
             if(bid == 0)
                 System.out.println(this + " pass!");
             else

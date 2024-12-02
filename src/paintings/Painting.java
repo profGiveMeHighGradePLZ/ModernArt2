@@ -51,6 +51,7 @@ public abstract class Painting {
      */
     public Painting(int artist_id) {
         this.artist_id = artist_id;
+        owner = null;
     }
     /**
      * Get the artist ID of the painting
@@ -113,6 +114,9 @@ public abstract class Painting {
      */
     @Override
     public final String toString() {
+        if(owner == null){
+            return getArtistName()+" [" + getType() + "] owner: null";
+        }
         return getArtistName()+" [" + getType() + "] owner: " + getOwner().getName();
     }
 

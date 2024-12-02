@@ -1,6 +1,6 @@
 package players;
 
-import paintings.HiddenAuction;
+import paintings.HiddenAuctionPainting;
 import paintings.Painting;
 
 public class AFKPlayer extends Player{
@@ -10,7 +10,7 @@ public class AFKPlayer extends Player{
 
     @Override
     public int bid(int currentBid, Painting p) {
-        if(!(p instanceof HiddenAuction)) {
+        if(!(p instanceof HiddenAuctionPainting)) {
             System.out.println(this+" bids 0");
         }
         return 0;

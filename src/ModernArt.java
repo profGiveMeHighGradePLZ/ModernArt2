@@ -158,13 +158,13 @@ public class ModernArt {
             for(int j = 0;j<PAINTS[i].length;j++){//j refer to auction type
                 for(int paint = 0;paint<PAINTS[i][j];paint++){
                     if(j == 0)
-                        deck.add(new OpenAuction(i));
+                        deck.add(new OpenAuctionPainting(i));
                     else if (j == 1)
-                        deck.add(new HiddenAuction(i));
+                        deck.add(new HiddenAuctionPainting(i));
                     else if (j == 2)
-                        deck.add(new OneOfferAuction(i));
+                        deck.add(new OneOfferAuctionPainting(i));
                     else
-                        deck.add(new FixedPriceAuction(i));
+                        deck.add(new FixedPriceAuctionPainting(i));
                 }
             }
         }
