@@ -24,9 +24,7 @@ public class ComputerPlayer extends Player{
         if(round == 0)
             potentialValue = 30/carry;
         else
-            potentialValue = (30+scoreboard[round][p.getArtistId()])/carry;
-
-
+            potentialValue = (30+scoreboard[round-1][p.getArtistId()])/carry;
 
         int tmp = 0;
         if((tmp += currentBid+ ThreadLocalRandom.current().nextInt(15))<potentialValue && tmp <= this.getMoney())
