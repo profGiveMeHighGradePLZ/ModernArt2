@@ -46,6 +46,9 @@ public class Player {
      * The paintings the player has bought
      */
     protected List<Painting> boughtPaintings = new ArrayList<>();
+
+    private int discount = 1;
+
     /**
      * #added
      * Constructor of the Player class
@@ -206,7 +209,9 @@ public class Player {
             earn(scores[p.getArtistId()]);
         }
         boughtPaintings.clear();
-
+        discount = 1;
     }
-
+    protected void setDiscount(int discount){
+        this.discount = discount;
+    }
 }

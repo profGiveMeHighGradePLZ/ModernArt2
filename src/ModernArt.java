@@ -4,6 +4,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+import AuctionEventCard.CelebrityEffect;
+import AuctionEventCard.EventCard;
+import AuctionEventCard.NormalAuction;
 import paintings.*;
 import players.*;
 
@@ -99,6 +102,8 @@ public class ModernArt {
     private int[][] scoreboard = new int[ROUND][Painting.ARTIST_NAMES.length];
 
     private final boolean isSolitaireGame;
+
+    private EventCard event;
 
     public static void main(String[] args) {
         if (args.length == 1) {
@@ -344,6 +349,21 @@ public class ModernArt {
         int currentPlayer = 0;
 
         for (int round = 0; round < ROUND; round++) {
+            // set EventCard;
+            int Event = ThreadLocalRandom.current().nextInt(0,2);
+            switch (Event){
+                case 0:
+                    event = new NormalAuction();
+                    break;
+                case 1:
+                    event = new CelebrityEffect();
+                    break;
+            }
+            event.eventEffect();
+
+
+
+
             //deal the paintings
             dealPainting(round);
             //start auction
@@ -436,4 +456,5 @@ public class ModernArt {
     public Player[] getPlayers() {
         return players;
     }
+
 }
