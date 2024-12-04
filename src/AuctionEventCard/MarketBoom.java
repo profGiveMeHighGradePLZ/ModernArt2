@@ -9,9 +9,11 @@ public class MarketBoom extends EventCard{
     public void eventEffect() {
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------------------");
         System.out.println(getEventName());
         System.out.println(getDescription());
-        System.out.println("Game Effect: The starting price for all paintings in this round was raised to 10");
+        System.out.println("Game Effect: The selling price for all paintings in this round doubled");
+        System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
 

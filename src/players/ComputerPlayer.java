@@ -1,5 +1,6 @@
 package players;
 
+import paintings.FixedPriceAuctionPainting;
 import paintings.HiddenAuctionPainting;
 import paintings.Painting;
 
@@ -30,7 +31,7 @@ public class ComputerPlayer extends Player{
         if((tmp += currentBid+ ThreadLocalRandom.current().nextInt(15))<potentialValue && tmp <= this.getMoney())
             bid = tmp;
 
-        if(!(p instanceof HiddenAuctionPainting)) {
+        if(!(p instanceof HiddenAuctionPainting || (p instanceof FixedPriceAuctionPainting && p.getOwner().equals(this)))) {
             if(bid == 0)
                 System.out.println(this + " pass!");
             else

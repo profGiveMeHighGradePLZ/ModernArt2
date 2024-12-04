@@ -9,9 +9,11 @@ public class AuctionDelayed extends EventCard{
     public void eventEffect() {
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------------------");
         System.out.println(getEventName());
         System.out.println(getDescription());
         System.out.println("Game Effect: The number of max painting in the current round has been reduced by half");
+        System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
 

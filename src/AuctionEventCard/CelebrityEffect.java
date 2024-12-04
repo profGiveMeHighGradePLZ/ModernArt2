@@ -13,9 +13,11 @@ public class CelebrityEffect extends EventCard{
         FavorArtist = ARTIST_NAMES[Artisit_id];
     }
 
+    @Override
     public int getArtisitId() {
         return Artisit_id;
     }
+
     public String getFavorArtist() {
         return FavorArtist;
     }
@@ -24,9 +26,11 @@ public class CelebrityEffect extends EventCard{
     public void eventEffect() {
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------------------");
         System.out.println(getEventName());
         System.out.println(getDescription());
         System.out.println("The Artist is " + getFavorArtist()+", and the sell price doubled!!!");
+        System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
 

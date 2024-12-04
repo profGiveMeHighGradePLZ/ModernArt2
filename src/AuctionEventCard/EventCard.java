@@ -16,5 +16,8 @@ public abstract class EventCard {
         return "Game Event Description: "+description;
     }
 
+    public int getArtisitId(){
+        return 0;
+    };
     public abstract void eventEffect();
 }

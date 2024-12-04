@@ -339,6 +339,7 @@ public class ModernArt {
         }
         discount = 0;
         profit = 1;
+        CelebrityArtistId = -1;
         return score;
     }
 
@@ -356,14 +357,14 @@ public class ModernArt {
 
         for (int round = 0; round < ROUND; round++) {
             // set EventCard;
-            int Event = ThreadLocalRandom.current().nextInt(0,4);
+            int Event = ThreadLocalRandom.current().nextInt(0,5);
             switch (Event){
                 case 0:
                     event = new NormalAuction();
                     break;
                 case 1:
                     event = new CelebrityEffect();
-                    CelebrityArtistId = ThreadLocalRandom.current().nextInt(0,5);
+                    CelebrityArtistId = event.getArtisitId();
                     break;
                 case 2:
                     event = new EconomicRecession();

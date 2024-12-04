@@ -9,8 +9,10 @@ public class NormalAuction extends EventCard{
     public void eventEffect() {
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------------------");
         System.out.println(getEventName());
         System.out.println(getDescription());
+        System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
     }
