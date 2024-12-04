@@ -47,7 +47,8 @@ public class Player {
      */
     protected List<Painting> boughtPaintings = new ArrayList<>();
 
-    private int discount = 1;
+    private int discount = 0;
+    private int profit = 1;
 
     /**
      * #added
@@ -209,9 +210,6 @@ public class Player {
             earn(scores[p.getArtistId()]);
         }
         boughtPaintings.clear();
-        discount = 1;
-    }
-    protected void setDiscount(int discount){
-        this.discount = discount;
+
     }
 }

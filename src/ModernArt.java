@@ -4,9 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
 
-import AuctionEventCard.CelebrityEffect;
-import AuctionEventCard.EventCard;
-import AuctionEventCard.NormalAuction;
+import AuctionEventCard.*;
 import paintings.*;
 import players.*;
 
@@ -104,6 +102,9 @@ public class ModernArt {
     private final boolean isSolitaireGame;
 
     private EventCard event;
+    private int discount = 0;
+    private int profit = 1;
+    private int CelebrityArtistId = -1;
 
     public static void main(String[] args) {
         if (args.length == 1) {
@@ -326,18 +327,23 @@ public class ModernArt {
         }
 
 
-
-
         int[] score = new int[paintingCount.length];
         for(int i = 0;i<index.length;i++){
             if(index[i] != -1) {
-                scoreboard[round][index[i]] = SCORES[i];
+                int multiplier = isCelebrityArtist(index[i])?2:1;
+                scoreboard[round][index[i]] = SCORES[i]*profit*multiplier-discount;
                 for (int j = 0; j <= round; j++) {
                     score[index[i]] += scoreboard[j][index[i]];
                 }
             }
         }
+        discount = 0;
+        profit = 1;
         return score;
+    }
+
+    private boolean isCelebrityArtist(int index){
+        return index == CelebrityArtistId;
     }
 
     /**
@@ -350,13 +356,25 @@ public class ModernArt {
 
         for (int round = 0; round < ROUND; round++) {
             // set EventCard;
-            int Event = ThreadLocalRandom.current().nextInt(0,2);
+            int Event = ThreadLocalRandom.current().nextInt(0,4);
             switch (Event){
                 case 0:
                     event = new NormalAuction();
                     break;
                 case 1:
                     event = new CelebrityEffect();
+                    CelebrityArtistId = ThreadLocalRandom.current().nextInt(0,5);
+                    break;
+                case 2:
+                    event = new EconomicRecession();
+                    discount = 10;
+                    break;
+                case 3:
+                    event = new MarketBoom();
+                    profit = 2;
+                    break;
+                case 4:
+                    event = new AuctionDelayed();
                     break;
             }
             event.eventEffect();
@@ -375,7 +393,11 @@ public class ModernArt {
                 if (p != null) {
                     System.out.println(p.getOwner().getName() + " plays " + p);
                     p.auction(players);
-                    if (++paintingCount[p.getArtistId()] == MAX_PAINTINGS) {
+                    ++paintingCount[p.getArtistId()];
+                    if(event instanceof AuctionDelayed && paintingCount[p.getArtistId()] == 3){
+                        break;
+                    }
+                     else if (paintingCount[p.getArtistId()] == MAX_PAINTINGS) {
                         break; //this round end immediately and the painting is not putting up for auction
                     }
                 }
