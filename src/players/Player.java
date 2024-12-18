@@ -8,13 +8,6 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * #updated
- * This class represents a player in the ModernArt game
- * 
- * You are not allowed to add any new field to this class
- * You are not allowed to add any new public method to this class
- */
 public class Player {
    /**
      * The name of the player
@@ -32,22 +25,18 @@ public class Player {
      */
     private int money;
     /**
-     * #updated - change visibility
      * The total number of players in the game
      */
     protected static int totalPlayers = 0;
     /**
-     * #updated - change visibility
      * The paintings the player has in hand
      */
     protected List<Painting> handPaintings = new ArrayList<>();
     /**
-     * #updated - change visibility
      * The paintings the player has bought
      */
     protected List<Painting> boughtPaintings = new ArrayList<>();
     /**
-     * #added
      * Constructor of the Player class
      */
     public Player(int money, String name) {
@@ -68,7 +57,6 @@ public class Player {
         painting.setOwner(this);
     }
     /**
-     * #update final
      * Get the name of the player
      */
     public final String getName() {
@@ -78,10 +66,6 @@ public class Player {
     /**
      * To let the player to put up a painting for auction
      * After this method, the painting should be removed from handPaintings
-     * 
-     * Validation of user's input should be done in this method,
-     * such as checking if the index is valid. If it is invalid,
-     * the player will need to enter the index again.
      */
     private boolean validPaintingInput(int index) throws Exception{
         if(index < 0 || handPaintings.size() < index )
@@ -116,15 +100,12 @@ public class Player {
 //        return handPaintings.remove(index);
     }
     /**
-     * #update final, given
      * Get the money the player has
      */
     public final int getMoney() {
         return money;
     }
     /**
-     * #update - another parameter is added; given
-     * 
      * 
      * To let the player to bid. 
      * 
@@ -141,14 +122,12 @@ public class Player {
      * If the bid amount is too small (less than the current bid or less than 1),
      * the bid amount will also be returned, which may means to pass the bid.
      * 
-     * You should not assume there is only open auction when writing this method
      */
     public int bid(int currentBid, Painting p) {
         return bid(currentBid);
     }
 
     /**
-     * #update - final, given
      * 
      * This old version is deprecated and shall not be used
      * outside this package.
@@ -192,7 +171,6 @@ public class Player {
     /**
      * To finalize a bid and purchase a painting
      * 
-     * This method has been finished for you
      */
     public void buyPainting(Painting Painting) {
         boughtPaintings.add(Painting);
