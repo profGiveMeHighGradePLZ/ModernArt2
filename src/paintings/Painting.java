@@ -7,12 +7,6 @@ import players.Player;
  * The Painting class represents a painting in the game.
  * A painting has an artist, an owner, a current bidder and a current bid.
  * 
- * Each painting has a type of auction. In this assignment, all paintings
- * have the same type of auction, which is "Open Auction".
- * 
- * You are not allowed to add any new field to this class
- * You are not allowed to add any new public method to this class
- * You can, however, add methdod with protected or private visibility
  */
 public abstract class Painting {
     /**
@@ -20,7 +14,6 @@ public abstract class Painting {
      */
     private final int artist_id;
     /**
-     * #updated - change visibility
      * The owner of the painting.
      * 
      * When the painting is dealt to a player, the owner is set to that player.
@@ -32,12 +25,10 @@ public abstract class Painting {
      */
     protected Player owner;
     /**
-     * #updated - change visibility
      * The current bidder of the painting.
      */
     protected Player currentBidder;
     /**
-     * #updated - change visibility
      * The current bid of the painting.
      */
     protected int currentBid;
@@ -65,7 +56,6 @@ public abstract class Painting {
         owner = p;
     }
     /**
-     * #updated
      * The type of auction of the painting
      */
     public abstract String getType();
@@ -82,11 +72,7 @@ public abstract class Painting {
         return ARTIST_NAMES[artist_id];
     }
     /**
-     * #updated, given
-     * 
      * Sold the painting to the current bidder
-     * This method has been completed for you.
-     * You should not modify this method.
      */
     protected void sold() {
         System.out.print("Sold! - ");
@@ -106,11 +92,8 @@ public abstract class Painting {
         }
         
     }
-    /**
-     * #updated - final
-     * 
-     * toString method to be modified
-     */
+
+    
     @Override
     public final String toString() {
         return getArtistName()+" [" + getType() + "] owner: " + getOwner().getName();
@@ -118,7 +101,6 @@ public abstract class Painting {
 
 
     /**
-     * #updated - abstract method
      * The auction method - various according to the type of auction
      */
     public abstract void auction(Player[] players);
