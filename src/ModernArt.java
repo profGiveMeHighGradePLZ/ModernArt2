@@ -9,10 +9,6 @@ import players.*;
 /**
  * This class represents the ModernArt game and control 
  * the main logic of the game
- * 
- * You cannot add any new field to this class
- * You cannot add any new public method to this class
- * You cannot change the visibility of the existing methods and fields
  */
 public class ModernArt {
 
@@ -226,11 +222,6 @@ public class ModernArt {
         return score;
     }
 
-    /**
-     * #updated - given
-     * This is the main logic of the game and has been completed for you
-     * You are not supposed to change this method
-     */
     public void startgame() {
         int currentPlayer = 0;
 
@@ -289,11 +280,7 @@ public class ModernArt {
         }
     }
 
-    /**
-     * Shuffle the deck of paintings - given
-     * 
-     * This method is completed for you.
-     */
+   
     public void shuffle(List<Painting> deck) {
         for (int i = 0; i < deck.size(); i++) {
             int index = ThreadLocalRandom.current().nextInt(deck.size());
@@ -303,28 +290,14 @@ public class ModernArt {
         }
     }
 
-    /**
-     * This method is completed for you. We use this for grading purpose
-     * 
-     * You are not allowed to use this method in your code
-     */
+   
     public int[][] getScoreboard() {
         return scoreboard;
     }
-    /**
-     * This method is for grading purpose.
-     * 
-     * You are not allowed to use this method in your code
-     */
+    
     public List<Painting> getDeck() {
         return deck;
     }
-    /**
-     * This method is for grading purpose.
-     * 
-     * You are not allowed to use this method in your code
-     */
-    public Player[] getPlayers() {
-        return players;
+
     }
 }
